@@ -15,21 +15,14 @@ conn_pairs = [tuple(l.strip().split("-")) for l in lines]
 
 
 # part 1: how many contain at least one computer with a name that starts with t?
-
 G = nx.Graph()
 G.add_edges_from(conn_pairs)
 cliques = list(nx.enumerate_all_cliques(G))
 conn_trios = [c for c in cliques if len(c) == 3]
-
-t_trios = []
-for t in conn_trios:
-    if any(e.startswith('t') for e in t):
-        t_trios.append(t)
-
+t_trios = [c for c in conn_trios if any(e.startswith('t') for e in c)]
 print("sets contain at least one t-computer (part 1):", len(t_trios))
 
 
 # part 2: what is the password to get into the LAN party?
-
 print("LAN party password (part 2):", ",".join(sorted(max(cliques, key=len))))
 
